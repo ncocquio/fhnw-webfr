@@ -1,0 +1,35 @@
+.metadata
+/RemoteSystemsTempFiles
+/Servers/
+.DS_Store
+Thumbs.db
+**/*.log
+.gradle
+bin
+target
+.svn
+bower_components
+node_modules
+.recommenders
+.settings
+.classpath
+.project
+.chrome
+.vscode
+out/
+
+# Intellij project files
+*.iml
+*.ipr
+*.iws
+.idea/
+
+#Gradle
+gradlew*
+gradle/
+.gradletasknamecache
+build/
+bin/
+
+# Java class files
+*.class
