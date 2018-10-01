@@ -1,9 +1,9 @@
 package ch.fhnw.webfr.flashcard.persistence;
 
+import ch.fhnw.webfr.flashcard.domain.Questionnaire;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import ch.fhnw.webfr.flashcard.domain.Questionnaire;
 
 public class QuestionnaireRepository {
 //	private static QuestionnaireRepository instance;

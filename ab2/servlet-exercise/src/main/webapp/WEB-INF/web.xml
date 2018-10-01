@@ -27,4 +27,9 @@
 		<filter-name>Basic Filter</filter-name>
 		<servlet-name>Basic Servlet</servlet-name>
 	</filter-mapping>
+
+	<context-param>
+		<param-name>mode</param-name>
+		<param-value>test</param-value>
+	</context-param>
 </web-app>

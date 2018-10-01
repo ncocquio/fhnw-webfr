@@ -1,9 +1,8 @@
 package ch.fhnw.webfr.flashcard.util;
 
-import org.apache.log4j.Logger;
-
 import ch.fhnw.webfr.flashcard.domain.Questionnaire;
 import ch.fhnw.webfr.flashcard.persistence.QuestionnaireRepository;
+import org.apache.log4j.Logger;
 
 public class QuestionnaireInitializer {
 	private static Logger logger = Logger.getLogger(QuestionnaireInitializer.class);
