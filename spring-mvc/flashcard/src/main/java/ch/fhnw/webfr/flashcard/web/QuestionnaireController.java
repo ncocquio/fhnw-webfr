@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/questionnaires")
@@ -36,13 +37,18 @@ public class QuestionnaireController {
     }
 
     @GetMapping(path = "/{id}")
-    public void findById(@PathVariable Long id, HttpServletResponse response, HttpServletRequest request) throws IOException {
-        Questionnaire questionnaire = questionnaireRepository.findById(id);
+    public void findById(@PathVariable String id, HttpServletResponse response, HttpServletRequest request) throws IOException {
+        Optional<Questionnaire> questionnaire = questionnaireRepository.findById(id);
         PrintWriter writer = response.getWriter();
-        writer.append("<html><head><title>" + questionnaire.getTitle() +"</title></head><body>");
-        writer.append("<h3>Questionnaire</h3>");
-        writer.append("<h3>" + questionnaire.getTitle() +"</h3>");
-        writer.append("<p>" + questionnaire.getDescription() +"</p>");
+        if (questionnaire.isPresent()) {
+            writer.append("<html><head><title>" + questionnaire.get().getTitle() + "</title></head><body>");
+            writer.append("<h3>Questionnaire</h3>");
+            writer.append("<h3>" + questionnaire.get().getTitle() + "</h3>");
+            writer.append("<p>" + questionnaire.get().getDescription() + "</p>");
+
+        } else {
+            writer.append("<html><head><title>No Questionnaire found</title></head>");
+        }
         writer.append("</body></html>");
     }
 }
