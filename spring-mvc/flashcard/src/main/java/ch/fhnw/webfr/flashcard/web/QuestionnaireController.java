@@ -4,15 +4,9 @@ import ch.fhnw.webfr.flashcard.domain.Questionnaire;
 import ch.fhnw.webfr.flashcard.persistence.QuestionnaireRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -23,32 +17,32 @@ public class QuestionnaireController {
     private QuestionnaireRepository questionnaireRepository;
 
     @GetMapping
-    public void findAll(HttpServletResponse response, HttpServletRequest request) throws IOException {
-        List<Questionnaire> questionnaires = questionnaireRepository.findAll();
-        PrintWriter writer = response.getWriter();
-        writer.append("<html><head><title>Example</title></head><body>");
-        writer.append("<h3>Fragebögen</h3>");
-        for (Questionnaire questionnaire : questionnaires) {
-            String url = request.getContextPath() + request.getServletPath();
-            url = url + "/" + questionnaire.getId().toString();
-            writer.append("<p><a href='" + response.encodeURL(url) + "'>" + questionnaire.getTitle() + "</a></p>");
+    public String findAll(Model model, @RequestParam(required=false) String form) {
+        if (null == form) {
+            model.addAttribute("questionnaires", questionnaireRepository.findAll());
+
+            return "list";
         }
-        writer.append("</body></html>");
+
+        model.addAttribute("questionnaire", new Questionnaire());
+        return "create";
+    }
+
+    @PostMapping
+    public String create(Questionnaire questionnaire) {
+        questionnaireRepository.insert(questionnaire);
+
+        return "create";
     }
 
     @GetMapping(path = "/{id}")
-    public void findById(@PathVariable String id, HttpServletResponse response, HttpServletRequest request) throws IOException {
+    public String findById(@PathVariable String id, Model model) {
         Optional<Questionnaire> questionnaire = questionnaireRepository.findById(id);
-        PrintWriter writer = response.getWriter();
-        if (questionnaire.isPresent()) {
-            writer.append("<html><head><title>" + questionnaire.get().getTitle() + "</title></head><body>");
-            writer.append("<h3>Questionnaire</h3>");
-            writer.append("<h3>" + questionnaire.get().getTitle() + "</h3>");
-            writer.append("<p>" + questionnaire.get().getDescription() + "</p>");
 
-        } else {
-            writer.append("<html><head><title>No Questionnaire found</title></head>");
+        if (questionnaire.isPresent()) {
+            model.addAttribute("questionnaire", questionnaire.get());
         }
-        writer.append("</body></html>");
+
+        return "show";
     }
 }
