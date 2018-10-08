@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,12 +22,14 @@ public class HelloWorldController {
     private QuestionnaireRepository questionnaireRepository;
 
     @GetMapping
-    public void hello(@RequestParam String name, HttpServletResponse response, HttpServletRequest request) throws IOException {
+    public @ResponseBody String hello(@RequestParam String name) {
         List<Questionnaire> questionnaires = questionnaireRepository.findAll();
-        PrintWriter writer = response.getWriter();
-        writer.append("<html><head><title>Example</title></head><body>");
-        writer.append("<h3>Hello " + name + "</h3>");
-        writer.append("<h3>You have " + questionnaires.size() + " questionnaires in your repo</h3>");
-        writer.append("</body></html>");
+
+        String response = "<html><head><title>Example</title></head><body>" +
+                "<h3>Hello " + name + "</h3>" +
+                "<h3>You have " + questionnaires.size() + " questionnaires in your repo</h3>" +
+                "</body></html>";
+
+        return response;
     }
 }
