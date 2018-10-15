@@ -17,6 +17,9 @@
 			<h2 style="text-align: center">No Questionnaires found</h2>
 		</div>
 		<div style="padding-top: 10px;">
+            <div th:if="${(message != null) && (status == 'success')}" th:text="${message}" class="alert alert-success" role="alert"></div>
+            <div th:if="${(message != null) && (status == 'warning')}" th:text="${message}" class="alert alert-warning" role="alert"></div>
+            <div th:if="${(message != null) && (status == 'error')}" th:text="${message}" class="alert alert-danger" role="alert"></div>
 			<table class="table table-condensed table-hover">
 				<tbody>
 					<tr th:each="questionnaire : ${questionnaires}">
@@ -33,7 +36,30 @@
 										</button>
 									</form>
 								</div>
+							</div>
+						</td>
+                        <td>
+                            <div class="btn-group float-right" role="group">
+                                <div>
+                                    <form action="#" th:action="@{/questionnaires} + '/edit/' + ${questionnaire.id}">
+                                        <button type="submit" class="btn btn-warning">
+                                            Edit
+                                        </button>
+                                    </form>
+                                </div>
                             </div>
+                        </td>
+						<td>
+							<div class="btn-group float-right" role="group">
+								<div>
+									<form action="#" th:action="@{/questionnaires} + '/' + ${questionnaire.id}" method="post">
+                                        <input type="hidden" name="_method" value="DELETE"/>
+										<button type="submit" class="btn btn-danger">
+											Delete
+										</button>
+									</form>
+								</div>
+							</div>
 						</td>
 					</tr>
 				</tbody>

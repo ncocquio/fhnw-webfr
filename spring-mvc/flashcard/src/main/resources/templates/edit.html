@@ -8,6 +8,8 @@
 <body>
     <section>
         <form th:action="@{/questionnaires}" th:object="${questionnaire}" method="post">
+            <input type="hidden" name="_method" value="PUT"/>
+            <input type="hidden" name="id" th:field="*{id}" />
             <div class="form-group row">
                 <label class="col-md-2" for="title">Title:</label>
                 <div class="col-md-10">
