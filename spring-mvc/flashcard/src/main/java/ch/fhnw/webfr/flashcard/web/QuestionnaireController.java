@@ -89,6 +89,10 @@ public class QuestionnaireController {
 
     @PutMapping
     public String editById(@Valid Questionnaire questionnaire, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            return "edit";
+        }
+
         Optional<Questionnaire> oldQuestionnaire = questionnaireRepository.findById(questionnaire.getId());
 
         if (oldQuestionnaire.isPresent()) {
