@@ -18,6 +18,7 @@ public class QuestionnaireController {
     @Autowired
     private QuestionnaireRepository questionnaireRepository;
 
+    @CrossOrigin(origins = "http://localhost:9000")
     @GetMapping
     public ResponseEntity<List<Questionnaire>> findAll() {
         return new ResponseEntity<>(questionnaireRepository.findAllByOrderByIdAsc(), HttpStatus.OK);
