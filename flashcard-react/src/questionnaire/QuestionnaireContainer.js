@@ -11,7 +11,7 @@ class QuestionnaireContainer extends React.Component {
     }
 
     componentDidMount() {
-        var request = new Request(this.props.serverUrl + "/questionnaires", {
+        let request = new Request(this.props.serverUrl + "/questionnaires", {
             method: 'GET',
             headers: new Headers({
                 'Content-Type': 'application/json'
@@ -21,7 +21,8 @@ class QuestionnaireContainer extends React.Component {
         ).then(json => {
             this.setState(
                 {
-                    questionnaires: json
+                    questionnaires: json,
+                    loading: false
                 }
             );
         }).catch(error => {
@@ -30,7 +31,7 @@ class QuestionnaireContainer extends React.Component {
     }
 
     create = (questionnaire) => {
-        var request = new Request(this.props.serverUrl + "/questionnaires", {
+        let request = new Request(this.props.serverUrl + "/questionnaires", {
             method: 'POST',
             headers: new Headers({
                 'Content-Type': 'application/json'
@@ -52,7 +53,7 @@ class QuestionnaireContainer extends React.Component {
     }
 
     update = (questionnaire) => {
-        var request = new Request(this.props.serverUrl + "/questionnaires/" + questionnaire.id, {
+        let request = new Request(this.props.serverUrl + "/questionnaires/" + questionnaire.id, {
             method: 'PUT',
             headers: new Headers({
                 'Content-Type': 'application/json'
@@ -78,7 +79,7 @@ class QuestionnaireContainer extends React.Component {
     }
 
     remove = (id) => {
-        var request = new Request(this.props.serverUrl + "/questionnaires/" + id, {
+        let request = new Request(this.props.serverUrl + "/questionnaires/" + id, {
             method: 'DELETE',
             headers: new Headers({
                 'Content-Type': 'application/json'

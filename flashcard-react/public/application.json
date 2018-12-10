@@ -1,4 +1,4 @@
 {
-    "url": "http://86.119.32.225:9000/flashcard-express",
-    "subtitle": "using server 'flashcard-express'"
+    "url": "http://localhost:8080/flashcard-rest",
+    "subtitle": "using server 'flashcard-rest'"
 }
