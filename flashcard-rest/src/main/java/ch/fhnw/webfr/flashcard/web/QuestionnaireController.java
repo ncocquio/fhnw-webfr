@@ -18,12 +18,13 @@ public class QuestionnaireController {
     @Autowired
     private QuestionnaireRepository questionnaireRepository;
 
-    @CrossOrigin(origins = "http://localhost:9000")
+    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping
     public ResponseEntity<List<Questionnaire>> findAll() {
         return new ResponseEntity<>(questionnaireRepository.findAllByOrderByIdAsc(), HttpStatus.OK);
     }
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping(path = "/{id}")
     public ResponseEntity<Questionnaire> findQuestionnaireById(@PathVariable String id) {
         Optional<Questionnaire> maybeQuestionnaire = questionnaireRepository.findById(id);
@@ -34,6 +35,7 @@ public class QuestionnaireController {
         }
     }
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping
     public ResponseEntity<Questionnaire> createQuestionnaire(@Valid @RequestBody Questionnaire questionnaire, BindingResult result) {
         if (result.hasErrors()) {
@@ -45,6 +47,7 @@ public class QuestionnaireController {
         return new ResponseEntity<>(savedQuestionnaire, HttpStatus.CREATED);
     }
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @PutMapping(path = "/{id}")
     public ResponseEntity<Questionnaire> updateQuestionnaireById(@PathVariable String id, @Valid @RequestBody Questionnaire questionnaire, BindingResult result) {
         if (result.hasErrors()) {
@@ -60,6 +63,7 @@ public class QuestionnaireController {
         }
     }
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @DeleteMapping(path = "/{id}")
     public ResponseEntity<Questionnaire> deleteQuestionnaireById(@PathVariable String id) {
         Optional<Questionnaire> maybeQuestionnaire = questionnaireRepository.findById(id);
