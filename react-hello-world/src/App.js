@@ -1,28 +1,26 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {Component} from 'react';
 
 class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React NOW
-          </a>
-        </header>
-      </div>
-    );
-  }
+    constructor(props) {
+        super(props);
+        this.names = [
+            'Balin', 'Dwalin', 'Fili', 'Kili', 'Dori', 'Nori', 'Ori', 'Oin', 'Gloin', 'Bifur', 'Bofur', 'Bombur'
+        ];
+        this.state = {
+            index: 0
+        };
+        this.tick = this.tick.bind(this);
+        setInterval(this.tick, 1000);
+    }
+
+    tick() {
+        const newIndex = (this.state.index + 1) % this.names.length;
+        this.state.index = newIndex;
+    }
+
+    render() {
+        return (<h1>{this.props.message} {this.names[this.state.index]}</h1>)
+    }
 }
 
 export default App;
