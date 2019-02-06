@@ -5,7 +5,7 @@ import './css/style.css';
 
 import Filter from './Filter';
 import Movie from './Movie';
-import { UPDATE_FITER_TERM } from '.';
+import { updateFilterTerm } from './Actions'
 
 const filter = (movies, term) => {
     let filterTerm = '^(?=.*' + _.trim(term).split(/\s+/).join(')(?=.*') + ').*$';
@@ -27,10 +27,7 @@ class App extends Component {
 const mapStateToProps = state => ({ myMovies: state.movies, term: state.term });
 
 const mapDispatchToProps = {
-    updateFilterTerm: (event) => ({
-        type: UPDATE_FITER_TERM,
-        term: event.target.value
-    })
+    updateFilterTerm
 };
 
 export default App = connect(mapStateToProps, mapDispatchToProps)(App);
